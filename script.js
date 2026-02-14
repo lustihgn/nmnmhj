@@ -11,7 +11,7 @@ document.addEventListener("click", startMusic);
 
 
 // ================== SAO RƠI ==================
-const icons = ["⭐","🌟","✨","💫","🌠"];
+const icons = ["⭐","🌟","✨","☆","★","✧","✦","⋆"];
 const cards = [
   {img:"anh1.jpg", text:"Chúc bạn năm mới vui vẻ ❤️"},
   {img:"anh2.jpg", text:"Chúc bạn hạnh phúc 💕"},
