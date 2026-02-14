@@ -1,5 +1,24 @@
-// ====================== SAO RƠI + POPUP ======================
+// ===================== NHẠC =====================
+const bgm = document.getElementById("bgm");
+
+function startMusic() {
+  if (!bgm) return;
+
+  bgm.volume = 0.5;
+
+  bgm.play().catch(() => {});
+
+  document.removeEventListener("click", startMusic);
+  document.removeEventListener("touchstart", startMusic);
+}
+
+document.addEventListener("click", startMusic);
+document.addEventListener("touchstart", startMusic);
+
+
+// ===================== SAO RƠI + POPUP =====================
 const starsIcon = ["⭐","🌟","✨","💫","🌠"];
+
 const cards = [
   { img:"anh1.jpg", text:"Chúc bạn năm mới thật nhiều niềm vui ❤️" },
   { img:"anh2.jpg", text:"Chúc bạn luôn hạnh phúc 💕" },
@@ -38,7 +57,7 @@ setInterval(createStar,700);
 popup.onclick=()=>popup.style.display="none";
 
 
-// ====================== PHÁO HOA ======================
+// ===================== PHÁO HOA =====================
 const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
 
@@ -194,4 +213,3 @@ function animate(){
 }
 
 animate();
-
