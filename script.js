@@ -11,7 +11,7 @@ document.addEventListener("click", startMusic);
 
 
 // ================== SAO RƠI ==================
-const icons = ["⭐","🌟","✨","💫"];
+const icons = ["⭐","🌟","✨","💫","🌠"];
 const cards = [
   {img:"anh1.jpg", text:"Chúc bạn năm mới vui vẻ ❤️"},
   {img:"anh2.jpg", text:"Chúc bạn hạnh phúc 💕"},
@@ -65,17 +65,19 @@ class Particle{
     this.y=y;
     this.vx=vx;
     this.vy=vy;
-    this.life=80;
+    this.life=100;
     this.color=color;
   }
   update(){
     this.x+=this.vx;
     this.y+=this.vy;
-    this.vy+=0.04;
+    this.vy+=0.03;
+    this.vx*=0.99;
+    this.vy*=0.99;
     this.life--;
   }
   draw(){
-    ctx.globalAlpha=this.life/80;
+    ctx.globalAlpha=this.life/100;
     ctx.beginPath();
     ctx.arc(this.x,this.y,2,0,Math.PI*2);
     ctx.fillStyle=this.color;
@@ -88,25 +90,82 @@ let particles=[];
 
 function explode(x,y){
   const color=`hsl(${Math.random()*360},100%,60%)`;
-  const count=80;
+  const type=Math.floor(Math.random()*4);
+
+  if(type===0) circleShape(x,y,color);
+  else if(type===1) heartShape(x,y,color);
+  else if(type===2) starShape(x,y,color);
+  else flowerShape(x,y,color);
+}
+
+function circleShape(x,y,color){
+  const count=100;
   for(let i=0;i<count;i++){
     const angle=(Math.PI*2/count)*i;
+    const speed=3+Math.random()*2;
     particles.push(new Particle(
       x,y,
-      Math.cos(angle)*3,
-      Math.sin(angle)*3,
+      Math.cos(angle)*speed,
+      Math.sin(angle)*speed,
       color
     ));
+  }
+}
+
+function heartShape(x,y,color){
+  for(let t=0;t<Math.PI*2;t+=0.05){
+    const hx=16*Math.pow(Math.sin(t),3);
+    const hy=13*Math.cos(t)
+            -5*Math.cos(2*t)
+            -2*Math.cos(3*t)
+            -Math.cos(4*t);
+    particles.push(new Particle(
+      x,y,
+      hx*0.25,
+      -hy*0.25,
+      color
+    ));
+  }
+}
+
+function starShape(x,y,color){
+  const spikes=5;
+  const outer=5;
+  const inner=2.5;
+  for(let i=0;i<spikes*2;i++){
+    const r=i%2===0?outer:inner;
+    const angle=(Math.PI*i)/spikes;
+    particles.push(new Particle(
+      x,y,
+      Math.cos(angle)*r,
+      Math.sin(angle)*r,
+      color
+    ));
+  }
+}
+
+function flowerShape(x,y,color){
+  const petals=8;
+  for(let i=0;i<petals;i++){
+    const angle=(Math.PI*2/petals)*i;
+    for(let r=0;r<4;r++){
+      particles.push(new Particle(
+        x,y,
+        Math.cos(angle)*(r+1)*1.5,
+        Math.sin(angle)*(r+1)*1.5,
+        color
+      ));
+    }
   }
 }
 
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  if(Math.random()<0.04){
+  if(Math.random()<0.05){
     explode(
       Math.random()*canvas.width,
-      Math.random()*canvas.height*0.5
+      Math.random()*canvas.height*0.6
     );
   }
 
