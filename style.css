@@ -1,33 +1,42 @@
 body {
   margin: 0;
   overflow: hidden;
-  background: radial-gradient(circle at center, #0d1b2a, #000814);
   font-family: sans-serif;
+  background: radial-gradient(circle at center, #0b132b 0%, #050a1f 60%, #020617 100%);
   color: white;
 }
 
-/* Canvas */
-#fireworks {
+/* ⭐ Sao nhỏ cố định (không nhấp nháy) */
+body::before {
+  content: "";
   position: fixed;
   inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(1.5px 1.5px at 70% 40%, white, transparent),
+    radial-gradient(1.8px 1.8px at 40% 80%, white, transparent),
+    radial-gradient(1.2px 1.2px at 85% 20%, white, transparent),
+    radial-gradient(1.5px 1.5px at 10% 70%, white, transparent);
+  opacity: 0.6;
   z-index: 0;
 }
 
-/* Title */
+/* Canvas pháo hoa */
+#fireworks {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Tiêu đề */
 .title {
   position: absolute;
   top: 40px;
   width: 100%;
   text-align: center;
   font-size: 40px;
-  text-shadow: 0 0 20px #4cc9f0, 0 0 40px white;
-  animation: glow 2s infinite alternate;
+  text-shadow: 0 0 20px #4cc9f0;
   z-index: 2;
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 15px #4cc9f0; }
-  to { text-shadow: 0 0 40px white; }
 }
 
 /* ⭐ Sao rơi */
@@ -35,7 +44,7 @@ body {
   position: absolute;
   cursor: pointer;
   animation: fall linear forwards;
-  z-index: 5;
+  z-index: 3;
 }
 
 @keyframes fall {
@@ -68,4 +77,3 @@ body {
   border-radius: 10px;
   margin-bottom: 10px;
 }
-
