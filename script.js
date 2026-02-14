@@ -5,7 +5,6 @@ function startMusic() {
   if (!bgm) return;
 
   bgm.volume = 0.5;
-
   bgm.play().catch(() => {});
 
   document.removeEventListener("click", startMusic);
@@ -102,7 +101,7 @@ class Particle{
   update(){
     this.x+=this.vx;
     this.y+=this.vy;
-    this.vy+=0.05;
+    this.vy+=0.05; // gravity
     this.vx*=0.99;
     this.vy*=0.99;
     this.life--;
@@ -189,8 +188,9 @@ function shapeFlower(x,y,color){
 }
 
 function animate(){
-  ctx.fillStyle="rgba(0,0,20,0.25)";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  // XÓA SẠCH CANVAS -> KHÔNG LÀM NỀN NHẤP NHÁY
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
   if(Math.random()<0.03) rockets.push(new Rocket());
 
